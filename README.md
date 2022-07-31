@@ -1,4 +1,4 @@
-## Wiktio: simple and memory-efficient word extractor for Wiktionary ##
+## Simple and memory-efficient word extractor for Wiktionary ##
 
 ```
    //  ___  ___ __   __  \\
