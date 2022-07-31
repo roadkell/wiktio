@@ -51,7 +51,7 @@ def process_elem(elem,
                  titleset: set,
                  ns: str,
                  lang: str,
-                 partofspeech: str,
+                 pos: str,
                  optfilter: str):
 	"""
 	Parse and extract page titles, depending on given arguments.
@@ -61,10 +61,10 @@ def process_elem(elem,
 	if elem.getparent().tag == (ns+'page'):
 		has_ns0 = False
 		has_lang = False
-		has_partofspeech = False
+		has_pos = False
 		has_optfilter = False
 
-		pos_pattern = re.compile('{{'+partofspeech+'.'+lang)
+		pos_pattern = re.compile('{{'+pos+'.'+lang)
 		opt_pattern = re.compile(optfilter)
 
 		for sib in etree.SiblingsIterator(elem, tag=('{*}ns')):
@@ -79,10 +79,10 @@ def process_elem(elem,
 					if not lang \
 					   or '= {{-'+lang+'-}} =' in sibchild.text:
 						has_lang = True
-					# partofspeech string: either empty or, e.g., '{{сущ ru' or '{{сущ-ru'
-					if not partofspeech \
+					# pos string: either empty or, e.g., '{{сущ ru' or '{{сущ-ru'
+					if not pos \
 					   or re.search(pos_pattern, sibchild.text):
-						has_partofspeech = True
+						has_pos = True
 					# optional additional regex string to search page text for
 					if not optfilter \
 					   or re.search(opt_pattern, sibchild.text):
@@ -92,7 +92,7 @@ def process_elem(elem,
 		   and elem.text \
 		   and has_ns0 \
 		   and has_lang \
-		   and has_partofspeech \
+		   and has_pos \
 		   and has_optfilter:
 			titleset.add(elem.text)
 
@@ -116,18 +116,18 @@ def main() -> int:
 	parser.add_argument('infile',
 	                    type=argparse.FileType('rb'),
 	                    default=(None if sys.stdin.isatty() else sys.stdin),
-	                    help="Wiktionary XML dump file (can be bz2-compressed), e.g., \
+	                    help="Wiktionary XML dump file (bz2-compressed), e.g., \
 	                          'ruwiktionary-latest-pages-articles.xml.bz2'")
 	parser.add_argument('outfile',
 	                    nargs='?',
 	                    type=argparse.FileType('w'),
 	                    default=sys.stdout,
 	                    help="list of page titles (plain text)")
-	parser.add_argument('-l', '--language',
+	parser.add_argument('-l', '--lang',
 	                    type=str,
 	                    default='',
 	                    help="filter by language, e.g., 'ru', 'en'")
-	parser.add_argument('-p', '--partofspeech',
+	parser.add_argument('-p', '--pos',
 	                    type=str,
 	                    default='',
 	                    help="filter by part of speech, \
@@ -152,8 +152,8 @@ def main() -> int:
 			          process_elem,
 			          titleset,
 			          ns,
-			          args.language,
-			          args.partofspeech,
+			          args.lang,
+			          args.pos,
 			          args.regex)
 
 		except etree.ParseError:

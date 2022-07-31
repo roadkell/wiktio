@@ -18,19 +18,19 @@ Currently, only [ru-wiktionary](https://ru.wiktionary.org/) dumps are supported.
 ### Usage ###
 
 ```
-python3 wiktio.py [-h] [-l LANGUAGE] [-p PARTOFSPEECH] [-r REGEX] infile [outfile]
+python3 wiktio.py [-h] [-l LANG] [-p POS] [-r REGEX] infile [outfile]
 
 positional arguments:
-	infile                                          Wiktionary XML dump file (bz2-compressed), e.g.,
-	                                                'ruwiktionary-latest-pages-articles.xml.bz2'
-	outfile                                         list of extracted words (plain text)
+	infile                      Wiktionary XML dump file (bz2-compressed), e.g.,
+	                            'ruwiktionary-latest-pages-articles.xml.bz2'
+	outfile                     list of extracted words (plain text)
 
 options:
-	-h, --help                                      show this help message and exit
-	-l LANGUAGE, --language LANGUAGE                filter words by language, e.g., 'ru', 'en'
-	-p PARTOFSPEECH, --partofspeech PARTOFSPEECH    filter by part of speech, e.g.,
-	                                                'сущ', 'гл', 'adv' (sic), 'прил'
-	-r REGEX, --regex REGEX                         optional regex string to filter page text by
+	-h, --help                  show this help message and exit
+	-l LANG, --lang LANG        filter words by language, e.g., 'ru', 'en'
+	-p POS, --pos POS           filter by part of speech, e.g.,
+	                            'сущ', 'гл', 'adv' (sic), 'прил'
+	-r REGEX, --regex REGEX     optional regex string to filter page text by
 ```
 
 ### Other projects ###
