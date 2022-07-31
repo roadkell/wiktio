@@ -13,6 +13,26 @@ This is a small tool for extracting a list of all words from Wiktionary dumps, w
 
 It is not a full-blown general purpose parser/extractor for Wiktionary data. It doesn't extract definitions, translations, synonyms, etc. If you need that, check out [Other projects](#other-projects).
 
+Currently, only [ru-wiktionary](https://ru.wiktionary.org/) dumps are supported. More languages will follow.
+
+### Usage ###
+
+```
+python3 wiktio.py [-h] [-l LANGUAGE] [-p PARTOFSPEECH] [-r REGEX] infile [outfile]
+
+positional arguments:
+	infile                                          Wiktionary XML dump file (bz2-compressed), e.g.,
+	                                                'ruwiktionary-latest-pages-articles.xml.bz2'
+	outfile                                         list of extracted words (plain text)
+
+options:
+	-h, --help                                      show this help message and exit
+	-l LANGUAGE, --language LANGUAGE                filter words by language, e.g., 'ru', 'en'
+	-p PARTOFSPEECH, --partofspeech PARTOFSPEECH    filter by part of speech, e.g.,
+	                                                'сущ', 'гл', 'adv' (sic), 'прил'
+	-r REGEX, --regex REGEX                         optional regex string to filter page text by
+```
+
 ### Other projects ###
 
 - https://github.com/tatuylonen/wiktextract
