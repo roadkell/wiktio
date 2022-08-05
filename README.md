@@ -11,7 +11,7 @@
 
 This is a small tool for extracting a list of all words from Wiktionary dumps, with optional regexp filtering.
 
-It is not a full-blown general purpose parser/extractor for Wiktionary data. It doesn't extract definitions, translations, synonyms, etc. If you need that, check out [Other projects](#other-projects).
+It is not a full-blown general purpose parser/extractor for Wiktionary data. It doesn't extract definitions, translations, synonyms, etc. If you need that, check out [other projects](#other-projects).
 
 Currently, only [ru-wiktionary](https://ru.wiktionary.org/) dumps are supported. More languages will follow.
 
@@ -33,6 +33,13 @@ options:
 	-r REGEX, --regex REGEX     optional regex string to filter page text by
 ```
 
+Dumps can be downloaded at https://dumps.wikimedia.org/.
+
+The required dumps are named as
+`[lang]wiktionary-[date|latest]-pages-articles[-multistream].xml.bz2`
+(e.g., `ruwiktionary-latest-pages-articles.xml.bz2`
+or `ruwiktionary-20220720-pages-articles-multistream.xml.bz2`)
+
 ### Other projects ###
 
 - https://github.com/tatuylonen/wiktextract
@@ -53,3 +60,7 @@ Even more:
 ### License ###
 
 [Hippocratic License 3.0](https://firstdonoharm.dev/)
+
+[lxml](https://lxml.de/): [BSD](https://github.com/lxml/lxml/blob/master/doc/licenses/BSD.txt)
+
+[tqdm](https://github.com/tqdm/tqdm): [MIT](https://github.com/tqdm/tqdm/blob/master/LICENCE)
