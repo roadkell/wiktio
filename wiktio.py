@@ -3,12 +3,6 @@
 Wiktio: simple and memory-efficient word extractor for Wiktionary
 
 XML dump file (bz2-compressed) -> list of page titles (plaintext)
-Dumps can be downloaded at:
-https://dumps.wikimedia.org/
-The dumps we need are:
-[lang]wiktionary-[date|latest]-pages-articles[-multistream].xml.bz2
-(e.g., ruwiktionary-latest-pages-articles.xml.bz2
-or ruwiktionary-20220720-pages-articles-multistream.xml.bz2)
 """
 
 # ============================================================================ #
