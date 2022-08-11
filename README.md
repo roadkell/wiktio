@@ -1,12 +1,12 @@
 ## Simple and memory-efficient word extractor for Wiktionary ##
 
 ```
-   //  ___  ___ __   __  \\
-  //    \\   \\ /    /    \\
- //      \\   \\    /      \\
- \\       \\  /\\  /       //
-  \\       \\/  \\/       //
-   \\  w  i  k  t  i  o  //
+   // ___  ___ __   __   \\
+  //   \\   \\ /    /     \\
+ //     \\   \\    /       \\
+ \\      \\  /\\  /        //
+  \\      \\/  \\/iktiny  //
+   \\                    //
 ```
 
 This is a small tool for extracting a list of all words from Wiktionary dumps, with optional regexp filtering.
@@ -18,7 +18,7 @@ Currently, only [ru-wiktionary](https://ru.wiktionary.org/) dumps are supported.
 ### Usage ###
 
 ```
-python3 wiktio.py [-h] [-l LANG] [-p POS] [-r REGEX] infile [outfile]
+python3 wiktiny.py [-h] [-l LANG] [-p POS] [-r REGEX] infile [outfile]
 
 positional arguments:
 	infile                      Wiktionary XML dump file (bz2-compressed), e.g.,
