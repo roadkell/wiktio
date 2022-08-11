@@ -3,6 +3,8 @@
 Wiktiny: simple and memory-efficient word extractor for Wiktionary
 
 XML dump file (bz2-compressed) -> list of page titles (plaintext)
+
+TODO: try to replace argparse with click
 """
 
 # ============================================================================ #
@@ -18,7 +20,7 @@ from tqdm import tqdm
 # ============================================================================ #
 
 
-def fast_iter(context, func, *args, **kwargs):
+def fast_iter(context, func, *args, **kwargs) -> None:
 	"""
 	http://lxml.de/parsing.html#modifying-the-tree
 	Based on Liza Daly's fast_iter
@@ -46,11 +48,12 @@ def process_elem(elem,
                  ns: str,
                  lang: str,
                  pos: str,
-                 optfilter: str):
+                 optfilter: str) -> None:
 	"""
 	Parse and extract page titles, depending on given arguments.
 
-	Currently adapted for ruwiktionary, other langs will follow.
+	Currently adapted for ru-wiktionary (curly-brace tag structure inside <text>
+	differs for different language wikts), other langs will follow.
 	"""
 	if elem.getparent().tag == (ns+'page'):
 		has_ns0 = False
@@ -96,17 +99,17 @@ def process_elem(elem,
 def main() -> int:
 
 	print()
-	print('   //  ___  ___ __   __  \\\\')
-	print('  //    \\\\   \\\\ /    /    \\\\')
-	print(' //      \\\\   \\\\    /      \\\\')
-	print(' \\\\       \\\\  /\\\\  /       //')
-	print('  \\\\       \\\\/  \\\\/       //')
-	print('   \\\\  w  i  k  t  i  o  //')
+	print('   // ___  ___ __   __   \\\\')
+	print('  //   \\\\   \\\\ /    /     \\\\')
+	print(' //     \\\\   \\\\    /       \\\\')
+	print(' \\\\      \\\\  /\\\\  /        //')
+	print('  \\\\      \\\\/  \\\\/iktiny  //')
+	print('   \\\\                    //')
 	print()
 	print('Memory-efficient word extractor from Wiktionary XML dumps')
 	print()
 
-	parser = argparse.ArgumentParser()
+	parser = argparse.ArgumentParser(prog='python3 wiktiny.py')
 	parser.add_argument('infile',
 	                    type=argparse.FileType('rb'),
 	                    default=(None if sys.stdin.isatty() else sys.stdin),
