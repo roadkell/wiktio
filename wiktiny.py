@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Wiktio: simple and memory-efficient word extractor for Wiktionary
+Wiktiny: simple and memory-efficient word extractor for Wiktionary
 
 XML dump file (bz2-compressed) -> list of page titles (plaintext)
 """
