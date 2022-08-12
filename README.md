@@ -6,7 +6,7 @@
  //     \\   \\    /       \\
  \\      \\  /\\  /        //
   \\      \\/  \\/iktiny  //
-   \\                    //
+   \\      ‾    ‾        //
 ```
 
 This is a small tool for extracting a list of all words from Wiktionary dumps, with optional regexp filtering.

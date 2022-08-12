@@ -5,6 +5,7 @@ Wiktiny: simple and memory-efficient word extractor for Wiktionary
 XML dump file (bz2-compressed) -> list of page titles (plaintext)
 
 TODO: try to replace argparse with click
+TODO: try BeautifulSoup for XML parsing
 """
 
 # ============================================================================ #
@@ -16,6 +17,80 @@ from bz2 import BZ2File
 
 from lxml import etree
 from tqdm import tqdm
+
+# ============================================================================ #
+
+
+def main() -> int:
+
+	print()
+	print('   // ___  ___ __   __   \\\\')
+	print('  //   \\\\   \\\\ /    /     \\\\')
+	print(' //     \\\\   \\\\    /       \\\\')
+	print(' \\\\      \\\\  /\\\\  /        //')
+	print('  \\\\      \\\\/  \\\\/iktiny  //')
+	print('   \\\\      ‾    ‾        //')
+	print()
+	print('Memory-efficient word extractor from Wiktionary XML dumps')
+	print()
+
+	parser = argparse.ArgumentParser(prog='python3 wiktiny.py')
+	parser.add_argument('infile',
+	                    type=argparse.FileType('rb'),
+	                    default=(None if sys.stdin.isatty() else sys.stdin),
+	                    help="Wiktionary XML dump file (bz2-compressed), e.g., \
+	                          'ruwiktionary-latest-pages-articles.xml.bz2'")
+	parser.add_argument('outfile',
+	                    nargs='?',
+	                    type=argparse.FileType('w'),
+	                    default=sys.stdout,
+	                    help="list of page titles (plain text)")
+	parser.add_argument('-l', '--lang',
+	                    type=str,
+	                    default='',
+	                    help="filter by language, e.g., 'ru', 'en'")
+	parser.add_argument('-p', '--pos',
+	                    type=str,
+	                    default='',
+	                    help="filter by part of speech, \
+	                          e.g., 'сущ', 'гл', 'adv' (sic), 'прил'")
+	parser.add_argument('-r', '--regex',
+	                    type=str,
+	                    default='',
+	                    help="optional regex string to filter page text by")
+
+	args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
+
+	titleset = set()
+	ns = '{http://www.mediawiki.org/xml/export-0.10/}'
+
+	with BZ2File(args.infile) as f:
+		try:
+			print('Loading XML document and creating XML tree object...')
+			context = etree.iterparse(f, events=('end',), tag=ns+'title')
+			print('Done.')
+			print('Parsing XML tree...')
+			fast_iter(context,
+			          process_elem,
+			          titleset,
+			          ns,
+			          args.lang,
+			          args.pos,
+			          args.regex)
+
+		except etree.ParseError:
+			print('Unexpected end of XML document, or malformed XML. Aborting...')
+
+	print('Done.')
+	print('Exporting wordlist into a plaintext file...')
+
+	with args.outfile as f:
+		for w in sorted(titleset):
+			print(w, file=f)
+
+	print('Done.')
+
+	return 0
 
 # ============================================================================ #
 
@@ -92,80 +167,6 @@ def process_elem(elem,
 		   and has_pos \
 		   and has_optfilter:
 			titleset.add(elem.text)
-
-# ============================================================================ #
-
-
-def main() -> int:
-
-	print()
-	print('   // ___  ___ __   __   \\\\')
-	print('  //   \\\\   \\\\ /    /     \\\\')
-	print(' //     \\\\   \\\\    /       \\\\')
-	print(' \\\\      \\\\  /\\\\  /        //')
-	print('  \\\\      \\\\/  \\\\/iktiny  //')
-	print('   \\\\                    //')
-	print()
-	print('Memory-efficient word extractor from Wiktionary XML dumps')
-	print()
-
-	parser = argparse.ArgumentParser(prog='python3 wiktiny.py')
-	parser.add_argument('infile',
-	                    type=argparse.FileType('rb'),
-	                    default=(None if sys.stdin.isatty() else sys.stdin),
-	                    help="Wiktionary XML dump file (bz2-compressed), e.g., \
-	                          'ruwiktionary-latest-pages-articles.xml.bz2'")
-	parser.add_argument('outfile',
-	                    nargs='?',
-	                    type=argparse.FileType('w'),
-	                    default=sys.stdout,
-	                    help="list of page titles (plain text)")
-	parser.add_argument('-l', '--lang',
-	                    type=str,
-	                    default='',
-	                    help="filter by language, e.g., 'ru', 'en'")
-	parser.add_argument('-p', '--pos',
-	                    type=str,
-	                    default='',
-	                    help="filter by part of speech, \
-	                          e.g., 'сущ', 'гл', 'adv' (sic), 'прил'")
-	parser.add_argument('-r', '--regex',
-	                    type=str,
-	                    default='',
-	                    help="optional additional regex string to filter page text by")
-
-	args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
-
-	titleset = set()
-	ns = '{http://www.mediawiki.org/xml/export-0.10/}'
-
-	with BZ2File(args.infile) as f:
-		try:
-			print('Loading XML document and creating XML tree object...')
-			context = etree.iterparse(f, events=('end',), tag=ns+'title')
-			print('Done.')
-			print('Parsing XML tree...')
-			fast_iter(context,
-			          process_elem,
-			          titleset,
-			          ns,
-			          args.lang,
-			          args.pos,
-			          args.regex)
-
-		except etree.ParseError:
-			print('Unexpected end of XML document, or malformed XML. Aborting...')
-
-	print('Done.')
-	print('Exporting wordlist into a plaintext file...')
-
-	with args.outfile as f:
-		for w in sorted(titleset):
-			print(w, file=f)
-
-	print('Done.')
-
-	return 0
 
 # ============================================================================ #
 
