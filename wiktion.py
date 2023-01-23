@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Wiktiny: simple and memory-efficient word extractor for Wiktionary
+Wiktion: simple and memory-efficient word extractor for Wiktionary
 
 XML dump file (bz2-compressed) -> list of page titles (plaintext)
 
@@ -28,13 +28,13 @@ def main() -> int:
 	print('  //   \\\\   \\\\ /    /     \\\\')
 	print(' //     \\\\   \\\\    /       \\\\')
 	print(' \\\\      \\\\  /\\\\  /        //')
-	print('  \\\\      \\\\/  \\\\/iktiny  //')
-	print('   \\\\      ‾    ‾        //')
+	print('  \\\\      \\\\/  \\\\/iktion  //')
+	print('   \\\\                    //')
 	print()
 	print('Memory-efficient word extractor from Wiktionary XML dumps')
 	print()
 
-	parser = argparse.ArgumentParser(prog='python3 wiktiny.py')
+	parser = argparse.ArgumentParser(prog='python3 wiktion.py')
 	parser.add_argument('infile',
 	                    type=argparse.FileType('rb'),
 	                    default=(None if sys.stdin.isatty() else sys.stdin),
@@ -61,7 +61,7 @@ def main() -> int:
 
 	args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
 
-	titleset = set()
+	titleset: set[str] = set()
 	ns = '{http://www.mediawiki.org/xml/export-0.10/}'
 
 	with BZ2File(args.infile) as f:
@@ -103,9 +103,9 @@ def fast_iter(context, func, *args, **kwargs) -> None:
 	See also http://effbot.org/zone/element-iterparse.htm
 	https://stackoverflow.com/questions/12160418/why-is-lxml-etree-iterparse-eating-up-all-my-memory
 	"""
-	for event, elem in tqdm(context,
-	                        unit='elem',
-	                        desc='XML tree elements parsed'):
+	for _, elem in tqdm(context,
+	                    unit='elem',
+	                    desc='XML tree elements parsed'):
 		func(elem, *args, **kwargs)
 		# It's safe to call clear() here because no descendants will be accessed
 		elem.clear()
@@ -119,7 +119,7 @@ def fast_iter(context, func, *args, **kwargs) -> None:
 
 
 def process_elem(elem,
-                 titleset: set,
+                 titleset: set[str],
                  ns: str,
                  lang: str,
                  pos: str,

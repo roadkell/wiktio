@@ -5,20 +5,20 @@
   //   \\   \\ /    /     \\
  //     \\   \\    /       \\
  \\      \\  /\\  /        //
-  \\      \\/  \\/iktiny  //
-   \\      ‾    ‾        //
+  \\      \\/  \\/iktion  //
+   \\                    //
 ```
 
 This is a small tool for extracting a list of all words from Wiktionary dumps, with optional regexp filtering.
 
 It is not a full-featured parser/extractor for Wiktionary data. It doesn't extract definitions, translations, synonyms, etc. If you need that, check out [other projects](#other-projects).
 
-Currently, only [ru-wiktionary](https://ru.wiktionary.org/) dumps are supported. More languages will follow.
+Currently, only [ru-wiktionary](https://ru.wiktionary.org/) dumps are supported. More languages will (hopefully) follow.
 
 ### Usage ###
 
 ```
-python3 wiktiny.py [-h] [-l LANG] [-p POS] [-r REGEX] infile [outfile]
+python3 wiktion.py [-h] [-l LANG] [-p POS] [-r REGEX] infile [outfile]
 
 positional arguments:
 	infile                      Wiktionary XML dump file (bz2-compressed), e.g.,
@@ -59,7 +59,7 @@ Even more:
 
 ### License ###
 
-[Hippocratic License 3.0](https://firstdonoharm.dev/)
+[Hippocratic License 3.0](https://github.com/roadkell/wiktion/blob/main/LICENSE.md)
 
 [lxml](https://lxml.de/): [BSD](https://github.com/lxml/lxml/blob/master/doc/licenses/BSD.txt)
 
