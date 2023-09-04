@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """
 Wiktion: simple and memory-efficient word extractor for Wiktionary
+https://github.com/roadkell/wiktion
 
 XML dump file (bz2-compressed) -> list of page titles (plaintext)
 
+TODO: ditch "lang-pos-etc" filtering in favor of a single regex string
 TODO: try to replace argparse with click
 TODO: try BeautifulSoup for XML parsing
 """
@@ -98,9 +100,10 @@ def main() -> int:
 def fast_iter(context, func, *args, **kwargs) -> None:
 	"""
 	http://lxml.de/parsing.html#modifying-the-tree
-	Based on Liza Daly's fast_iter
+	Based on Liza Daly's fast_iter:
 	http://www.ibm.com/developerworks/xml/library/x-hiperfparse/
-	See also http://effbot.org/zone/element-iterparse.htm
+	See also:
+	http://effbot.org/zone/element-iterparse.htm
 	https://stackoverflow.com/questions/12160418/why-is-lxml-etree-iterparse-eating-up-all-my-memory
 	"""
 	for _, elem in tqdm(context,
@@ -146,7 +149,7 @@ def process_elem(elem,
 
 		for sib in etree.SiblingsIterator(elem, tag=('{*}revision')):
 			for sibchild in etree.ElementChildIterator(sib, tag='{*}text'):
-				if type(sibchild.text) == str:
+				if isinstance(sibchild.text, str):
 					# language string: either empty or, e.g., '= {{-ru-}} ='
 					if not lang \
 					   or '= {{-'+lang+'-}} =' in sibchild.text:
