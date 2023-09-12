@@ -64,7 +64,7 @@ def main() -> int:
 	args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
 
 	titleset: set[str] = set()
-	ns = '{http://www.mediawiki.org/xml/export-0.10/}'
+	ns = '{http://www.mediawiki.org/xml/export-0.11/}'
 
 	with BZ2File(args.infile) as f:
 		try:
@@ -99,12 +99,13 @@ def main() -> int:
 
 def fast_iter(context, func, *args, **kwargs) -> None:
 	"""
+	Iterate & free memory in the process
+
+	Based on:
+	https://stackoverflow.com/a/12161078/4773752
+	https://web.archive.org/web/20210309115224/http://www.ibm.com/developerworks/xml/library/x-hiperfparse/
+	https://web.archive.org/web/20230326113707/https://effbot.org/python-xml-and-elementtree-module/
 	http://lxml.de/parsing.html#modifying-the-tree
-	Based on Liza Daly's fast_iter:
-	http://www.ibm.com/developerworks/xml/library/x-hiperfparse/
-	See also:
-	http://effbot.org/zone/element-iterparse.htm
-	https://stackoverflow.com/questions/12160418/why-is-lxml-etree-iterparse-eating-up-all-my-memory
 	"""
 	for _, elem in tqdm(context,
 	                    unit='elem',
@@ -128,10 +129,10 @@ def process_elem(elem,
                  pos: str,
                  optfilter: str) -> None:
 	"""
-	Parse and extract page titles, depending on given arguments.
+	Parse and extract page titles, depending on given arguments
 
 	Currently adapted for ru-wiktionary (curly-brace tag structure inside <text>
-	differs for different language wikts), other langs will follow.
+	differs for different language wikts), other langs will (probably) follow.
 	"""
 	if elem.getparent().tag == (ns+'page'):
 		has_ns0 = False
