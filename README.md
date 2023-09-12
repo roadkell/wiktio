@@ -9,8 +9,6 @@
   \\                    //
 ```
 
-[![Hippocratic License HL3-CORE](https://img.shields.io/static/v1?label=Hippocratic%20License&message=HL3-CORE&labelColor=5e2751&color=bc8c3d)](https://firstdonoharm.dev/version/3/0/core.html)
-
 This is a small tool for extracting a list of all words from Wiktionary dumps, with optional regexp filtering.
 
 It is not a full-featured parser/extractor for Wiktionary data. It doesn't extract definitions, translations, synonyms, etc. If you need that, check out [other projects](#other-projects).
@@ -60,8 +58,6 @@ Even more:
 - https://github.com/search?q=wiktionary
 
 ### License ###
-
-[Hippocratic License 3.0](https://github.com/roadkell/wiktion/blob/main/LICENSE.md)
 
 [lxml](https://lxml.de/): [BSD](https://github.com/lxml/lxml/blob/master/doc/licenses/BSD.txt)
 
