@@ -59,6 +59,8 @@ Even more:
 
 ### License ###
 
+[GNU General Public License v3.0](LICENSE.md)
+
 [lxml](https://lxml.de/): [BSD](https://github.com/lxml/lxml/blob/master/doc/licenses/BSD.txt)
 
 [tqdm](https://github.com/tqdm/tqdm): [MIT](https://github.com/tqdm/tqdm/blob/master/LICENCE)
