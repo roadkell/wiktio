@@ -2,6 +2,7 @@
 """
 Filter Russian verb list, removing reflexive ('-ся') verbs
 when a nonreflexive form is present
+https://github.com/roadkell/wiktion
 """
 
 import argparse

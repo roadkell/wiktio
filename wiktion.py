@@ -10,7 +10,7 @@ TODO: try to replace argparse with click
 TODO: try BeautifulSoup for XML parsing
 """
 
-# ============================================================================ #
+#==============================================================================#
 
 import argparse
 import re
@@ -20,7 +20,7 @@ from bz2 import BZ2File
 from lxml import etree
 from tqdm import tqdm
 
-# ============================================================================ #
+#==============================================================================#
 
 
 def main() -> int:
@@ -94,7 +94,7 @@ def main() -> int:
 
 	return 0
 
-# ============================================================================ #
+#==============================================================================#
 
 
 def fast_iter(context, func, *args, **kwargs) -> None:
@@ -119,7 +119,7 @@ def fast_iter(context, func, *args, **kwargs) -> None:
 				del ancestor.getparent()[0]
 	del context
 
-# ============================================================================ #
+#==============================================================================#
 
 
 def process_elem(elem,
@@ -132,7 +132,7 @@ def process_elem(elem,
 	Parse and extract page titles, depending on given arguments
 
 	Currently adapted for ru-wiktionary (curly-brace tag structure inside <text>
-	differs for different language wikts), other langs will (probably) follow.
+	differs for different language wikts), other langs will (hopefully) follow.
 	"""
 	if elem.getparent().tag == (ns+'page'):
 		has_ns0 = False
@@ -172,7 +172,7 @@ def process_elem(elem,
 		   and has_optfilter:
 			titleset.add(elem.text)
 
-# ============================================================================ #
+#==============================================================================#
 
 
 if __name__ == '__main__':

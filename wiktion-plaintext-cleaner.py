@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Clean up Wiktionary plaintext dump and output result into plaintext file
+https://github.com/roadkell/wiktion
 """
 
 import argparse
