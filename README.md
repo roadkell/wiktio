@@ -8,6 +8,7 @@
  \\      \\/  \\/iktion  //
   \\                    //
 ```
+### What ###
 
 This is a small tool for extracting a list of all words from Wiktionary dumps, with optional regexp filtering.
 
@@ -15,7 +16,7 @@ It is not a full-featured parser/extractor for Wiktionary data. It doesn't extra
 
 Currently, only [ru-wiktionary](https://ru.wiktionary.org/) dumps are supported. More languages will (hopefully) follow.
 
-### Usage ###
+### How ###
 
 ```
 python3 wiktion.py [-h] [-l LANG] [-p POS] [-r REGEX] infile [outfile]
